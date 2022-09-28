@@ -29,11 +29,18 @@ public class Quiz : MonoBehaviour
     [SerializeField] TextMeshProUGUI scoreText;
     Score score;
 
+    [Header("Progress Bar")]
+    [SerializeField] Slider progressBar;
+
+    public bool isComplete;
+
     void Start()
     {
         timer = FindObjectOfType<Timer>();
         score = FindObjectOfType<Score>();
         scoreText.text = "Score: 0%";
+        progressBar.maxValue = questions.Count;
+        progressBar.value = 0;
     }
 
     void Update()
@@ -60,6 +67,7 @@ public class Quiz : MonoBehaviour
             SetDefaultButtonSprites();
             GetRandomQuestion();
             DisplayQuestion();
+            progressBar.value++;
             score.IncrementQuestionsSeen();
         }
     }
@@ -92,12 +100,16 @@ public class Quiz : MonoBehaviour
         SetButtonState(false);
         timer.StopTimer();
         scoreText.text = $"Score: {score.CalculateScore()}%";
+        if (progressBar.value == progressBar.maxValue)
+        {
+            isComplete = true;
+        }
     }
 
     void DisplayAnswer(int index)
     {
         correctAnswerIndex = currentQuestion.GetCorrectAnswerIndex();
-        Image buttonImage = answerButtons[correctAnswerIndex].GetComponent<Image>();
+        Image correctButtonImage = answerButtons[correctAnswerIndex].GetComponent<Image>();
         if (index == correctAnswerIndex)
         {
             questionText.text = "That's the correct answer!";
@@ -105,9 +117,11 @@ public class Quiz : MonoBehaviour
         }
         else
         {
+            Image selectedButtonImage = answerButtons[index].GetComponent<Image>();
+            selectedButtonImage.color = Color.red;
             questionText.text = $"Sorry, the correct answer was {answerButtons[correctAnswerIndex].GetComponentInChildren<TextMeshProUGUI>().text}";
         }
-        buttonImage.sprite = correctAnswerSprites;
+        correctButtonImage.sprite = correctAnswerSprites;
     }
 
     void SetButtonState(bool state)
@@ -125,6 +139,7 @@ public class Quiz : MonoBehaviour
         {
             Image buttonImage = answerButtons[i].GetComponent<Image>();
             buttonImage.sprite = defaultAnswerSprites;
+            buttonImage.color = Color.white;
         }
     }
 }
