@@ -22,7 +22,6 @@ public class QuestionSO : ScriptableObject
 
     public string GetAnswer (int index)
     {
-        //index = correctAnswerIndex;
         return answers[index];
     }
 }
