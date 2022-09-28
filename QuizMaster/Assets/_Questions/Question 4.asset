@@ -13,3 +13,9 @@ MonoBehaviour:
   m_Name: Question 4
   m_EditorClassIdentifier: 
   question: What is the name of Usopp' village?
+  answers:
+  - Cocoa Weed
+  - Cocoyasi Village
+  - Syrup Village
+  - Gosa Village
+  correctAnswerIndex: 2
