@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97c985a0369554e428a5d22d3b73dd6a, type: 3}
   m_Name: Question 4
   m_EditorClassIdentifier: 
-  question: What is the name of Usopp' village?
+  question: What is the name of Usopp's village?
   answers:
   - Cocoa Weed
   - Cocoyasi Village
